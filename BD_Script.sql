@@ -38,10 +38,10 @@ CREATE TABLE alumnos (
 	matricula TEXT NOT NULL,
 	correo TEXT NOT NULL,
 	telefono TEXT NOT NULL,
-	promedio DOUBLE NOT NULL,
+	promedio FLOAT NOT NULL,
 	token TEXT NOT NULL,
 	idDependencia INTEGER NOT NULL,
-	idCoordinador NOT NULL,
+	idCoordinador INTEGER NOT NULL,
 	PRIMARY KEY (idAlumno)
 );
 /*
@@ -52,7 +52,7 @@ CREATE TABLE actividades (
 	horas INTEGER NOT NULL,
 	descripcion TEXT NOT NULL,
 	fecha DATE NOT NULL,
-	idAlumno NOT NULL,
+	idAlumno INTEGER NOT NULL,
 	PRIMARY KEY (idActividad)
 );
 /*

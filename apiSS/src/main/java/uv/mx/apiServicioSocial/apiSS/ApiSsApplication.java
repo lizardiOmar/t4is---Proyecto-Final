@@ -72,4 +72,22 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
+
+	@PutMapping("/actualizarAlumno/{idAlumno}")
+	public String actualizarAlumno(@RequestBody Alumno alumno, @PathVariable int idAlumno, @RequestHeader String Authorization){
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		String respuesta = "Token no actualizado";
+		if(c!=null){
+			alumno.setIdAlumno(idAlumno);
+			Boolean validacion = Alumno.actualizarAlumno(alumno);
+			if(validacion){
+				respuesta="Alumno actualizado"; 
+			}else{
+				respuesta="Error en actualizar alumno";
+			}	
+		}else{
+			respuesta="Token inválido";
+		}
+		return respuesta;
+	}
 }

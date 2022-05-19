@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="https://t4is.uv.mx/alumnos"
+xmlns:tns="https://t4is.uv.mx/alumnos"
+elementFormDefault="qualified">
+    <xs:element name="BuscarAlumnosRequest">
+        <xs:complexType>
+            <xs:sequence>
+	            <xs:element name="token" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="BuscarAlumnosResponse">
+        <xs:complexType>
+            <xs:sequence>
+	            <xs:element name="alumnos" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="idAlumno" type="xs:int"></xs:element>
+                            <xs:element name="nombres" type="xs:string"></xs:element>
+                            <xs:element name="apellidoPaterno" type="xs:string"></xs:element>
+                            <xs:element name="apellidoMaterno" type="xs:string"></xs:element>
+                            <xs:element name="matricula" type="xs:string"></xs:element>
+                            <xs:element name="correo" type="xs:string"></xs:element>
+                            <xs:element name="token" type="xs:string"></xs:element>
+                            <xs:element name="promedio" type="xs:double"></xs:element>
+                            <xs:element name="idCoordinador" type="xs:int"></xs:element>
+                            <xs:element name="idDependencia" type="xs:int"></xs:element>
+                            <xs:element name="telefono" type="xs:string"></xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema> 

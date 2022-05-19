@@ -3,22 +3,22 @@ package uv.mx.apiServicioSocial.apiSS.DB;
 import java.net.URISyntaxException;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Alumno {
     private int idAlumno;
-    private String nombres, apellidoPaterno, apellidoMaterno, matricula, correo, token;
+    private String nombres, apellidoPaterno, apellidoMaterno, matricula, correo, token, telefono;
     private double promedio;
     private int idCoordinador;
     private int idDependencia;
     public Alumno(int idAlumno, String nombres, String apellidoPaterno, String apellidoMaterno, String matricula,
-            String correo, String token, double promedio, int idCoordinador, int idDependencia) {
+            String correo, String token, double promedio, int idCoordinador, int idDependencia, String telefono) {
         this.idAlumno = idAlumno;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -29,6 +29,13 @@ public class Alumno {
         this.promedio = promedio;
         this.idCoordinador = idCoordinador;
         this.idDependencia = idDependencia;
+        this.setTelefono(telefono);
+    }
+    public String getTelefono() {
+        return telefono;
+    }
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
     public int getIdAlumno() {
         return idAlumno;
@@ -107,10 +114,10 @@ public class Alumno {
                 System.out.println("no hubo una coincidencia con la base de datos");
                 return null;
             }else{
-                Alumno aux =new Alumno(rs.getInt("idalumno"), rs.getString("nombres"), rs.getString("apellidopaterno"),rs.getString("apellidomaterno"), rs.getString("matricula"), rs.getString("correo"), rs.getString("token"), rs.getFloat("promedio"),  rs.getInt("idCoordinador"), rs.getInt("idDependencia"));
+                Alumno aux =new Alumno(rs.getInt("idalumno"), rs.getString("nombres"), rs.getString("apellidopaterno"),rs.getString("apellidomaterno"), rs.getString("matricula"), rs.getString("correo"), rs.getString("token"), rs.getFloat("promedio"),  rs.getInt("idCoordinador"), rs.getInt("idDependencia"), rs.getString("telefono"));
                 alumnos.add(aux);
                 while(rs.next()){
-                    aux =new Alumno(rs.getInt("idalumno"), rs.getString("nombres"), rs.getString("apellidopaterno"),rs.getString("apellidomaterno"), rs.getString("matricula"), rs.getString("correo"), rs.getString("token"), rs.getFloat("promedio"),  rs.getInt("idCoordinador"), rs.getInt("idDependencia"));
+                    aux =new Alumno(rs.getInt("idalumno"), rs.getString("nombres"), rs.getString("apellidopaterno"),rs.getString("apellidomaterno"), rs.getString("matricula"), rs.getString("correo"), rs.getString("token"), rs.getFloat("promedio"),  rs.getInt("idCoordinador"), rs.getInt("idDependencia"), rs.getString("telefono"));
                     alumnos.add(aux);
                 }
             }
@@ -121,5 +128,37 @@ public class Alumno {
             System.out.println(e.getMessage());
         }
         return alumnos;
+    }
+    //Agregar alumno
+    public static boolean registrarAlumno(Alumno a){
+        boolean resultado=false;
+        try{
+            String query =  " insert into alumnos (nombres, apellidopaterno, apellidomaterno, matricula, correo, token, promedio,  idCoordinador, idDependencia, telefono)"+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            Connection conn= Conexion.getConexion();
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+			Random rnd = new Random();
+            int number = rnd.nextInt(999999999);
+            String tokenAlumno=a.getNombres().substring(0, 2)+a.getApellidoPaterno().substring(0, 2)+a.getApellidoMaterno().substring(0, 2)+"-"+number;
+
+            preparedStmt.setString(1, a.getNombres());
+            preparedStmt.setString(2, a.getApellidoPaterno());
+            preparedStmt.setString(3, a.getApellidoMaterno());
+            preparedStmt.setString(4, a.getMatricula());
+            preparedStmt.setString(5, a.getCorreo());
+            preparedStmt.setString(6, tokenAlumno);
+            preparedStmt.setDouble(7, a.getPromedio());
+            preparedStmt.setInt(8, a.getIdCoordinador());
+            preparedStmt.setInt(9, a.getIdDependencia());
+            preparedStmt.setString(10, a.getTelefono());
+
+            preparedStmt.execute();
+            resultado=true;
+            preparedStmt.close();
+            conn.close();
+        }catch(SQLException | URISyntaxException e){
+            System.out.println(e.getMessage());
+        }
+        return resultado;
     }
 }

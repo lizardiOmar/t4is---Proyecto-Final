@@ -1,18 +1,17 @@
 package uv.mx.apiServicioSocial.apiSS;
 
-import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import uv.mx.apiServicioSocial.apiSS.DB.Alumno;
 import uv.mx.apiServicioSocial.apiSS.DB.Coordinador;
@@ -41,5 +40,19 @@ public class ApiSsApplication {
 			alumnos=Alumno.getAlumnosByCoordinador(c.getIdCoordinador());
 		}
 		return alumnos;
+	}
+	@PostMapping("/alumnos")
+	public String registrarAlumnoPost(@RequestBody Alumno alumno, @RequestHeader String Authorization){
+		String respuesta="Alumno "+alumno.getNombres()+" no registrado.";
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		if(c!=null){
+			System.out.println("Token válido. Bienvenido coordinador "+c.getNombres());
+			if(Alumno.registrarAlumno(alumno)){
+				respuesta="Alumno "+alumno.getNombres()+" registrado.";
+			}
+		}else{
+			respuesta="Token no válido.";
+		}
+		return respuesta;
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import uv.mx.apiServicioSocial.apiSS.DB.Alumno;
 import uv.mx.apiServicioSocial.apiSS.DB.Coordinador;
+import uv.mx.apiServicioSocial.apiSS.DB.Dependencia;
 
 @RestController
 @SpringBootApplication
@@ -67,6 +68,21 @@ public class ApiSsApplication {
 			if(validacion != null){
 				System.out.println("Token válido. Bienvenido coordinador "+c.getNombres());
 			}	
+		}else{
+			respuesta="Token no válido.";
+		}
+		return respuesta;
+	}
+
+	@PostMapping("/dependencias")
+	public String registrarDependenciaPost(@RequestBody Dependencia dependencia, @RequestHeader String Authorization){
+		String respuesta="Dependencia "+dependencia.getNombre()+" no registrado.";
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		if(c!=null){
+			System.out.println("Token válido. Bienvenido coordinador "+c.getNombres());
+			if(Dependencia.registrarDependencia(dependencia)){
+				respuesta="Dependencia "+dependencia.getNombre()+" registrada.";
+			}
 		}else{
 			respuesta="Token no válido.";
 		}

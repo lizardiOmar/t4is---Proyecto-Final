@@ -173,7 +173,7 @@ public class Alumno {
             connection = Conexion.getConexion();
             PreparedStatement actualizarToken = connection.prepareStatement("update alumnos set token = ? where idAlumno = ?");
             actualizarToken.setString(1, token);
-            actualizarToken.setInt(1, idAlumno);
+            actualizarToken.setInt(2, idAlumno);
             actualizarToken.execute();
             validacion = true;
         } catch (SQLException ex) {
@@ -219,5 +219,40 @@ public class Alumno {
         Random rnd = new Random();
         int number = rnd.nextInt(999999999);
         return a.getNombres().substring(0, 2)+a.getApellidoPaterno().substring(0, 2)+a.getApellidoMaterno().substring(0, 2)+"-"+number;
+    }
+
+    //Actualizar alumno
+    public static boolean actualizarAlumno(Alumno alumno){
+        boolean validacion = false;
+        Connection connection = null;
+        try {
+            connection = Conexion.getConexion();
+            PreparedStatement actualizarAlumno = connection.prepareStatement("update alumnos set nombres = ?, apellidopaterno = ?, apellidomaterno = ?, matricula = ?, correo = ?, promedio = ?,  idCoordinador = ?, idDependencia = ?, telefono = ? where idAlumno = ?");
+            actualizarAlumno.setString(1, alumno.getNombres());
+            actualizarAlumno.setString(2, alumno.getApellidoPaterno());
+            actualizarAlumno.setString(3, alumno.getApellidoMaterno());
+            actualizarAlumno.setString(4, alumno.getMatricula());
+            actualizarAlumno.setString(5, alumno.getCorreo());
+            actualizarAlumno.setDouble(6, alumno.getPromedio());
+            actualizarAlumno.setInt(7, alumno.getIdCoordinador());
+            actualizarAlumno.setInt(8, alumno.getIdDependencia());
+            actualizarAlumno.setString(9, alumno.getTelefono());
+            actualizarAlumno.setInt(10, alumno.getIdAlumno());
+            actualizarAlumno.execute();
+            validacion = true;
+        } catch (SQLException ex) {
+            
+        } catch (URISyntaxException ex){
+
+        }finally{
+            try {
+                if(connection != null && !connection.isClosed()){
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+            
+            }
+        }
+        return validacion;
     }
 }

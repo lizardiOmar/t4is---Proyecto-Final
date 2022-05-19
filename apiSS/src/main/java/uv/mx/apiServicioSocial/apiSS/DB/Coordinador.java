@@ -20,6 +20,9 @@ public class Coordinador {
         this.apellidoMaterno = apellidoMaterno;
         this.token = token;
     }
+    public Coordinador(){
+        
+    }
     public int getIdCoordinador() {
         return idCoordinador;
     }

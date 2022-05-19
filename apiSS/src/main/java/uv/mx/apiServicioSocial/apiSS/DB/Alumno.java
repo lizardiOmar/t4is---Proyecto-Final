@@ -31,6 +31,8 @@ public class Alumno {
         this.idDependencia = idDependencia;
         this.setTelefono(telefono);
     }
+    public Alumno(){
+    }
     public String getTelefono() {
         return telefono;
     }
@@ -160,5 +162,62 @@ public class Alumno {
             System.out.println(e.getMessage());
         }
         return resultado;
+    }
+
+    public static String actualizarToken(int idAlumno){
+        Boolean validacion = false;
+        Alumno alumno = Alumno.buscarAlumno(idAlumno);
+        String token = Alumno.generarToken(alumno);
+        Connection connection = null;
+        try {
+            connection = Conexion.getConexion();
+            PreparedStatement actualizarToken = connection.prepareStatement("update alumnos set token = ? where idAlumno = ?");
+            actualizarToken.setString(1, token);
+            actualizarToken.setInt(1, idAlumno);
+            actualizarToken.execute();
+            validacion = true;
+        } catch (SQLException ex) {
+            
+        } catch (URISyntaxException ex){
+
+        }finally{
+            try {
+                if(connection != null && !connection.isClosed()){
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+            
+            }
+        }
+        return validacion ? token: null;
+    }
+
+    public static Alumno buscarAlumno(int idAlumno) {
+        Alumno alumno = null;
+        try {
+            Connection connection = Conexion.getConexion();
+            PreparedStatement query = connection.prepareStatement("select * from alumnos where idAlumno = ?");
+            query.setInt(1, idAlumno);
+            
+            ResultSet result = query.executeQuery();
+            if(result.next()){
+                alumno = new Alumno();
+                alumno.setNombres(result.getString("nombres"));
+                alumno.setApellidoPaterno(result.getString("apellidoPaterno"));
+                alumno.setApellidoMaterno(result.getString("apellidoMaterno"));
+            }
+            result.close();
+        } catch (SQLException ex) {
+
+        }catch(URISyntaxException ex){
+
+        }
+        return alumno;
+    }
+
+    public static String generarToken(Alumno a){
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999999);
+        return a.getNombres().substring(0, 2)+a.getApellidoPaterno().substring(0, 2)+a.getApellidoMaterno().substring(0, 2)+"-"+number;
     }
 }

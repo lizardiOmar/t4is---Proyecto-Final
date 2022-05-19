@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,22 @@ public class ApiSsApplication {
 			if(Alumno.registrarAlumno(alumno)){
 				respuesta="Alumno "+alumno.getNombres()+" registrado.";
 			}
+		}else{
+			respuesta="Token no válido.";
+		}
+		return respuesta;
+	}
+
+	@PutMapping("/actualizarToken/{idAlumno}")
+	public String actualizarTokenPostAlumno(@PathVariable int idAlumno, @RequestHeader String Authorization){
+		//Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		Coordinador c= new Coordinador();
+		String respuesta = "Token no actualizado";
+		if(c!=null){
+			String validacion = Alumno.actualizarToken(idAlumno);
+			if(validacion != null){
+				System.out.println("Token válido. Bienvenido coordinador "+c.getNombres());
+			}	
 		}else{
 			respuesta="Token no válido.";
 		}

@@ -34,10 +34,12 @@ public class ApiSsApplication {
 		}
 		return response;
 	}
-	@RequestMapping(value="/alumnos/{token}", method=RequestMethod.GET)
-	public List<Alumno> verAlumnos(@PathVariable String token){
+	//REST ALUMNOS
+	//Get lista de alumnos
+	@RequestMapping(value="/alumnos", method=RequestMethod.GET)
+	public List<Alumno> verAlumnos(@RequestHeader String Authorization){
 		List<Alumno>alumnos=null;
-		Coordinador c=Coordinador.getCoordinadorByToken(token);
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
 		if(c!=null){
 			alumnos=Alumno.getAlumnosByCoordinador(c.getIdCoordinador());
 		}
@@ -57,23 +59,39 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-
-	@PutMapping("/actualizarToken/{idAlumno}")
+	
+	@PutMapping("/alumnos/{idAlumno}/actualizarToken")
 	public String actualizarTokenPostAlumno(@PathVariable int idAlumno, @RequestHeader String Authorization){
-		//Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
-		Coordinador c= new Coordinador();
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
 		String respuesta = "Token no actualizado";
 		if(c!=null){
-			String validacion = Alumno.actualizarToken(idAlumno);
-			if(validacion != null){
-				System.out.println("Token válido. Bienvenido coordinador "+c.getNombres());
+			if(Alumno.actualizarToken(idAlumno)){
+				respuesta = "Token actualizado";
 			}	
 		}else{
 			respuesta="Token no válido.";
 		}
 		return respuesta;
 	}
-
+	@PutMapping("/alumnos/{idAlumno}/actualizar")
+	public String actualizarAlumno(@RequestBody Alumno alumno, @PathVariable int idAlumno, @RequestHeader String Authorization){
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		String respuesta = "Alumno no actualizado";
+		if(c!=null){
+			alumno.setIdAlumno(idAlumno);
+			if(Alumno.actualizarAlumno(alumno)){
+				Alumno.actualizarToken(idAlumno);
+				respuesta="Alumno actualizado"; 
+			}else{
+				respuesta="Error en actualizar alumno";
+			}	
+		}else{
+			respuesta="Token no válido";
+		}
+		return respuesta;
+	}
+	//REST DEPENDENCIAS
+	//Agregar dependencia
 	@PostMapping("/dependencias")
 	public String registrarDependenciaPost(@RequestBody Dependencia dependencia, @RequestHeader String Authorization){
 		String respuesta="Dependencia "+dependencia.getNombre()+" no registrado.";
@@ -82,27 +100,10 @@ public class ApiSsApplication {
 			System.out.println("Token válido. Bienvenido coordinador "+c.getNombres());
 			if(Dependencia.registrarDependencia(dependencia)){
 				respuesta="Dependencia "+dependencia.getNombre()+" registrada.";
+				System.out.println(dependencia.toString());
 			}
 		}else{
 			respuesta="Token no válido.";
-		}
-		return respuesta;
-	}
-
-	@PutMapping("/actualizarAlumno/{idAlumno}")
-	public String actualizarAlumno(@RequestBody Alumno alumno, @PathVariable int idAlumno, @RequestHeader String Authorization){
-		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
-		String respuesta = "Token no actualizado";
-		if(c!=null){
-			alumno.setIdAlumno(idAlumno);
-			Boolean validacion = Alumno.actualizarAlumno(alumno);
-			if(validacion){
-				respuesta="Alumno actualizado"; 
-			}else{
-				respuesta="Error en actualizar alumno";
-			}	
-		}else{
-			respuesta="Token inválido";
 		}
 		return respuesta;
 	}

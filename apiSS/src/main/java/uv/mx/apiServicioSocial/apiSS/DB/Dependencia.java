@@ -6,12 +6,13 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.net.URISyntaxException;
+
 public class Dependencia {
     private int idDependencia;
     private String nombre;
     private String colonia;
     private String calle;
-    private String numero;
+    private int numero;
     private String nombreEncargado;
     private String apellidoPaternoEncargado;
     private String apellidoMaternoEncargado;
@@ -19,7 +20,7 @@ public class Dependencia {
     private String telefono;
     private int idCoordinador; 
 
-    public Dependencia(int idDependencia, String nombre, String colonia, String calle, String numero, String nombreEncargado, String apellidoPaternoEncargado, String apellidoMaternoEncargado, String correoEncargado, String telefono, int idCoordinador) {
+    public Dependencia(int idDependencia, String nombre, String colonia, String calle, int numero, String nombreEncargado, String apellidoPaternoEncargado, String apellidoMaternoEncargado, String correoEncargado, String telefono, int idCoordinador) {
         this.idDependencia = idDependencia;
         this.nombre = nombre;
         this.colonia = colonia;
@@ -53,7 +54,7 @@ public class Dependencia {
         return calle;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
@@ -97,7 +98,7 @@ public class Dependencia {
         this.calle = calle;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -141,7 +142,7 @@ public class Dependencia {
             preparedStmt.setString(1, a.getNombre());
             preparedStmt.setString(2, a.getColonia());
             preparedStmt.setString(3, a.getCalle());
-            preparedStmt.setString(4, a.getNumero());
+            preparedStmt.setInt(4, a.getNumero());
             preparedStmt.setString(5, a.getNombreEncargado());
             preparedStmt.setString(6, a.getApellidoPaternoEncargado());
             preparedStmt.setString(7, a.getApellidoMaternoEncargado());
@@ -160,5 +161,4 @@ public class Dependencia {
         }
         return resultado;
     }
-
 }

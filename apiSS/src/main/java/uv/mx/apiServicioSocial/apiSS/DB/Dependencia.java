@@ -161,4 +161,29 @@ public class Dependencia {
         }
         return resultado;
     }
+
+    public static boolean eliminarDependencia(int idDependencia){
+        boolean validacion = false;
+        Connection connection = null;
+        try {
+            connection = Conexion.getConexion();
+            PreparedStatement eliminarDependencia = connection.prepareStatement("delete from dependencias where idDependencia = ?");
+            eliminarDependencia.setInt(1, idDependencia);
+            eliminarDependencia.execute();
+            validacion = true;
+        } catch (SQLException ex) {
+            
+        } catch (URISyntaxException ex){
+
+        }finally{
+            try {
+                if(connection != null && !connection.isClosed()){
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+            
+            }
+        }
+        return validacion;
+    }
 }

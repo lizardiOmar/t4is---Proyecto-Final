@@ -109,6 +109,22 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
+
+	@DeleteMapping("/dependencias/{idDependencia}/eliminarDependencia")
+	public String eliminarDependencia(@PathVariable int idDependencia, @RequestHeader String Authorization){
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		String respuesta = "Dependencia no eliminada";
+		if(c!=null){
+			if(Dependencia.eliminarDependencia(idDependencia)){
+				respuesta="Dependencia eliminada"; 
+			}else{
+				respuesta="Error en eliminar dependencia";
+			}	
+		}else{
+			respuesta="Token no válido";
+		}
+		return respuesta;
+	}
 	//Eliminar Alumno
 	@DeleteMapping("/alumnos/{idAlumno}/eliminarAlumno")
 	public String eliminarAlumno(@PathVariable int idAlumno, @RequestHeader String Authorization){

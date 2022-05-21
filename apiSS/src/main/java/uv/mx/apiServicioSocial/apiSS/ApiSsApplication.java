@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -73,7 +74,8 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-	@PutMapping("/alumnos/{idAlumno}/actualizar")
+	//Actualizar Alumno
+	@PutMapping("/alumnos/{idAlumno}/actualizar") 
 	public String actualizarAlumno(@RequestBody Alumno alumno, @PathVariable int idAlumno, @RequestHeader String Authorization){
 		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
 		String respuesta = "Alumno no actualizado";
@@ -104,6 +106,22 @@ public class ApiSsApplication {
 			}
 		}else{
 			respuesta="Token no válido.";
+		}
+		return respuesta;
+	}
+	//Eliminar Alumno
+	@DeleteMapping("/alumnos/{idAlumno}/eliminarAlumno")
+	public String eliminarAlumno(@PathVariable int idAlumno, @RequestHeader String Authorization){
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		String respuesta = "Alumno no eliminado";
+		if(c!=null){
+			if(Alumno.eliminarAlumno(idAlumno)){
+				respuesta="Alumno elminado"; 
+			}else{
+				respuesta="Error en eliminar alumno";
+			}	
+		}else{
+			respuesta="Token no válido";
 		}
 		return respuesta;
 	}

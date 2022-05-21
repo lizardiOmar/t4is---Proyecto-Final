@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -104,6 +105,22 @@ public class ApiSsApplication {
 			}
 		}else{
 			respuesta="Token no válido.";
+		}
+		return respuesta;
+	}
+
+	@DeleteMapping("/dependencias/{idDependencia}/eliminarDependencia")
+	public String eliminarDependencia(@PathVariable int idDependencia, @RequestHeader String Authorization){
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		String respuesta = "Dependencia no eliminada";
+		if(c!=null){
+			if(Dependencia.eliminarDependencia(idDependencia)){
+				respuesta="Dependencia eliminada"; 
+			}else{
+				respuesta="Error en eliminar dependencia";
+			}	
+		}else{
+			respuesta="Token no válido";
 		}
 		return respuesta;
 	}

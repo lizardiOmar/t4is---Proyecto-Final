@@ -257,4 +257,29 @@ public class Alumno {
         }
         return validacion;
     }
+    //Eliminar Alumno
+    public static boolean eliminarAlumno(int idAlumno){ 
+        boolean validacion = false;
+        Connection connection = null;
+        try {
+            connection = Conexion.getConexion();
+            PreparedStatement eliminarAlumno = connection.prepareStatement("delete from alumnos where idAlumno = ?");
+            eliminarAlumno.setInt(1, idAlumno);
+            eliminarAlumno.execute();
+            validacion = true;
+        } catch (SQLException ex) {
+            
+        } catch (URISyntaxException ex){
+
+        }finally{
+            try {
+                if(connection != null && !connection.isClosed()){
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+            
+            }
+        }
+        return validacion;
+    }
 }

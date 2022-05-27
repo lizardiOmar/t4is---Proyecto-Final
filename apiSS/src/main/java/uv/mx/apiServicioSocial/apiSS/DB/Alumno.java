@@ -189,9 +189,9 @@ public class Alumno {
             }
             result.close();
         } catch (SQLException ex) {
-
+            System.out.println(ex.getMessage());
         }catch(URISyntaxException ex){
-
+            System.out.println(ex.getMessage());
         }
         return alumno;
     }
@@ -209,9 +209,9 @@ public class Alumno {
             actualizarToken.execute();
             validacion = true;
         } catch (SQLException ex) {
-            
+            System.out.println(ex.getMessage());
         } catch (URISyntaxException ex){
-
+            System.out.println(ex.getMessage());
         }finally{
             try {
                 if(connection != null && !connection.isClosed()){
@@ -243,16 +243,16 @@ public class Alumno {
             actualizarAlumno.execute();
             validacion = true;
         } catch (SQLException ex) {
-            
+            System.out.println(ex.getMessage());
         } catch (URISyntaxException ex){
-
+            System.out.println(ex.getMessage());
         }finally{
             try {
                 if(connection != null && !connection.isClosed()){
                     connection.close();
                 }
             } catch (SQLException ex) {
-            
+                System.out.println(ex.getMessage());
             }
         }
         return validacion;
@@ -268,16 +268,16 @@ public class Alumno {
             eliminarAlumno.execute();
             validacion = true;
         } catch (SQLException ex) {
-            
+            System.out.println(ex.getMessage());
         } catch (URISyntaxException ex){
-
+            System.out.println(ex.getMessage());
         }finally{
             try {
                 if(connection != null && !connection.isClosed()){
                     connection.close();
                 }
             } catch (SQLException ex) {
-            
+                System.out.println(ex.getMessage());
             }
         }
         return validacion;

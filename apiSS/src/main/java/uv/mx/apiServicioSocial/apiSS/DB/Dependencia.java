@@ -3,8 +3,6 @@ package uv.mx.apiServicioSocial.apiSS.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.net.URISyntaxException;
 
 public class Dependencia {
@@ -161,7 +159,7 @@ public class Dependencia {
         }
         return resultado;
     }
-
+    //Eliminar dependencia
     public static boolean eliminarDependencia(int idDependencia){
         boolean validacion = false;
         Connection connection = null;
@@ -171,17 +169,54 @@ public class Dependencia {
             eliminarDependencia.setInt(1, idDependencia);
             eliminarDependencia.execute();
             validacion = true;
-        } catch (SQLException ex) {
             
+               
+        } catch (SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
         } catch (URISyntaxException ex){
-
+            System.out.println(ex.getLocalizedMessage());
         }finally{
             try {
                 if(connection != null && !connection.isClosed()){
                     connection.close();
                 }
             } catch (SQLException ex) {
-            
+                System.out.println(ex.getLocalizedMessage());
+            }
+        }
+        return validacion;
+    }
+    //Actualizar alumno
+    public static boolean actualizarDependencia(Dependencia dependencia){
+        boolean validacion = false;
+        Connection connection = null;
+        try {
+            connection = Conexion.getConexion();
+            PreparedStatement actualizarDependencia = connection.prepareStatement("update dependencias set nombre = ?, colonia = ?, calle = ?, numero = ?, nombreEncargado = ?, apellidoPaternoEncargado = ?,  apellidoMaternoEncargado = ?, correoEncargado = ?, telefono = ?, idCoordinador = ? where idDependencia = ?");
+            actualizarDependencia.setString(1, dependencia.getNombre());
+            actualizarDependencia.setString(2, dependencia.getColonia());
+            actualizarDependencia.setString(3, dependencia.getCalle());
+            actualizarDependencia.setInt(4, dependencia.getNumero());
+            actualizarDependencia.setString(5, dependencia.getNombreEncargado());
+            actualizarDependencia.setString(6, dependencia.getApellidoPaternoEncargado());
+            actualizarDependencia.setString(7, dependencia.getApellidoMaternoEncargado());
+            actualizarDependencia.setString(8, dependencia.getCorreoEncargado());
+            actualizarDependencia.setString(9, dependencia.getTelefono());
+            actualizarDependencia.setInt(10, dependencia.getIdCoordinador());
+            actualizarDependencia.setInt(11, dependencia.getIdDependencia());
+            actualizarDependencia.execute();
+            validacion = true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
+        } catch (URISyntaxException ex){
+            System.out.println(ex.getLocalizedMessage());
+        }finally{
+            try {
+                if(connection != null && !connection.isClosed()){
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getLocalizedMessage());
             }
         }
         return validacion;

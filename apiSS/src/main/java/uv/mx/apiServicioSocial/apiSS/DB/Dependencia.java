@@ -163,6 +163,7 @@ public class Dependencia {
         }
         return resultado;
     }
+    
     //Eliminar dependencia
     public static boolean eliminarDependencia(int idDependencia){
         boolean validacion = false;
@@ -172,9 +173,7 @@ public class Dependencia {
             PreparedStatement eliminarDependencia = connection.prepareStatement("delete from dependencias where idDependencia = ?");
             eliminarDependencia.setInt(1, idDependencia);
             eliminarDependencia.execute();
-            validacion = true;
-            
-               
+            validacion = true;               
         } catch (SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
         } catch (URISyntaxException ex){
@@ -190,6 +189,7 @@ public class Dependencia {
         }
         return validacion;
     }
+
     //Actualizar dependencia
     public static boolean actualizarDependencia(Dependencia dependencia){
         boolean validacion = false;
@@ -225,6 +225,8 @@ public class Dependencia {
         }
         return validacion;
     }
+
+    //Obtener dependencia por ID
     public static Dependencia getDependenciaById(int idDependencia){
         Dependencia d=null;
         Statement statement;
@@ -246,6 +248,8 @@ public class Dependencia {
         }
         return d;
     }
+
+    //Visualizar Dependencia
     public static List<Dependencia> visualizarDependencias(){
         Dependencia d=null;
         List<Dependencia> dependencias=new ArrayList<>();

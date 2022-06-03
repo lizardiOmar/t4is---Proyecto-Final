@@ -2,7 +2,9 @@ package uv.mx.apiServicioSocial.apiSS.DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.net.URISyntaxException;
 
 public class Dependencia {
@@ -186,7 +188,7 @@ public class Dependencia {
         }
         return validacion;
     }
-    //Actualizar alumno
+    //Actualizar dependencia
     public static boolean actualizarDependencia(Dependencia dependencia){
         boolean validacion = false;
         Connection connection = null;
@@ -220,5 +222,26 @@ public class Dependencia {
             }
         }
         return validacion;
+    }
+    public static Dependencia getDependenciaById(int idDependencia){
+        Dependencia d=null;
+        Statement statement;
+        try{
+            Connection conn= Conexion.getConexion();
+            statement = conn.createStatement();
+            ResultSet rs=statement.executeQuery("select * from dependencias where idDependencia="+idDependencia+";");
+            if(rs.next()){
+                d=new Dependencia();
+                d.setNombreEncargado(rs.getString("nombreEncargado"));
+                d.setApellidoPaternoEncargado(rs.getString("apellidoPaternoEncargado"));
+                d.setApellidoMaternoEncargado(rs.getString("apellidoMaternoEncargado"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        }catch(SQLException | URISyntaxException e){
+            System.out.println(e.getMessage());
+        }
+        return d;
     }
 }

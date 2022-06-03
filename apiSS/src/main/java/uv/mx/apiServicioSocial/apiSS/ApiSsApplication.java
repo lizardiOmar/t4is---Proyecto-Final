@@ -189,4 +189,15 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
+
+	@RequestMapping(value="/dependencias", method=RequestMethod.GET)
+	public List<Dependencia> verDependencias(@RequestHeader String Authorization){
+		List<Dependencia>dependencias=null;
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		if(c!=null){
+			dependencias=Dependencia.visualizarDependencias();
+		}
+		return dependencias;
+	}
+
 }

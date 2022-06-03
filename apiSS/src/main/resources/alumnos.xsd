@@ -64,4 +64,22 @@ elementFormDefault="qualified">
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <!---Request para consultar horas -->
+    <xs:element name="ConsultarHorasRequest">
+        <xs:complexType>
+            <xs:sequence>
+	            <xs:element name="token" type="xs:string"/>
+                <xs:element name="idAlumno" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!---Response para consultar horas -->
+    <xs:element name="ConsultarHorasResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="horasRealizadas" type="xs:int"></xs:element>
+                <xs:element name="horasFaltantes" type="xs:int"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema> 

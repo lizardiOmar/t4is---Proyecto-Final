@@ -145,6 +145,8 @@ public class Alumno {
     public String toString() {
         return "Alumno{" + "idAlumno=" + idAlumno + ", nombres=" + nombres + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", matricula=" + matricula + ", correo=" + correo + ", token=" + token + ", telefono=" + telefono + ", promedio=" + promedio + ", idCoordinador=" + idCoordinador + ", idDependencia=" + idDependencia + ", horasFaltantes=" + horasFaltantes + ", horasRealizadas=" + horasRealizadas + '}';
     }
+    
+    //Buscar todos los alumnos
     public static List<Alumno> getAlumnosByCoordinador(int idCoordinador){
         List <Alumno> alumnos=new ArrayList<>();
         try{
@@ -170,6 +172,7 @@ public class Alumno {
         }
         return alumnos;
     }
+
     //Geenerar token 
     public static String generarToken(Alumno a){
         Random rnd = new Random();
@@ -211,7 +214,6 @@ public class Alumno {
     }
 
     //Buscar alumno
-
     public static Alumno buscarAlumno(int idAlumno) {
         Alumno alumno = null;
         try {
@@ -235,6 +237,7 @@ public class Alumno {
         return alumno;
     }
 
+    //Buscar alumno Token
     public static Alumno buscarAlumnoToken(String token) {
         Alumno alumno = null;
         try {
@@ -257,6 +260,7 @@ public class Alumno {
         }
         return alumno;
     }
+
     //Actualizar token
     public static Boolean actualizarToken(int idAlumno){
         Boolean validacion = false;
@@ -285,6 +289,7 @@ public class Alumno {
         }
         return validacion;
     }
+
     //Actualizar alumno
     public static boolean actualizarAlumno(Alumno alumno){
         boolean validacion = false;
@@ -319,6 +324,7 @@ public class Alumno {
         }
         return validacion;
     }
+
     //Eliminar Alumno
     public static boolean eliminarAlumno(int idAlumno){ 
         boolean validacion = false;
@@ -345,6 +351,7 @@ public class Alumno {
         return validacion;
     }
 
+    //Contador de Horas
     public static int contarHoras(int idAlumno){
         int total = 0;
         try {

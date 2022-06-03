@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.net.URISyntaxException;
 
 public class Dependencia {
@@ -161,6 +163,7 @@ public class Dependencia {
         }
         return resultado;
     }
+    
     //Eliminar dependencia
     public static boolean eliminarDependencia(int idDependencia){
         boolean validacion = false;
@@ -170,9 +173,7 @@ public class Dependencia {
             PreparedStatement eliminarDependencia = connection.prepareStatement("delete from dependencias where idDependencia = ?");
             eliminarDependencia.setInt(1, idDependencia);
             eliminarDependencia.execute();
-            validacion = true;
-            
-               
+            validacion = true;               
         } catch (SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
         } catch (URISyntaxException ex){
@@ -188,6 +189,7 @@ public class Dependencia {
         }
         return validacion;
     }
+
     //Actualizar dependencia
     public static boolean actualizarDependencia(Dependencia dependencia){
         boolean validacion = false;
@@ -223,6 +225,8 @@ public class Dependencia {
         }
         return validacion;
     }
+
+    //Obtener dependencia por ID
     public static Dependencia getDependenciaById(int idDependencia){
         Dependencia d=null;
         Statement statement;
@@ -243,5 +247,36 @@ public class Dependencia {
             System.out.println(e.getMessage());
         }
         return d;
+    }
+
+    //Visualizar Dependencia
+    public static List<Dependencia> visualizarDependencias(){
+        Dependencia d=null;
+        List<Dependencia> dependencias=new ArrayList<>();
+        try{
+            Connection c= Conexion.getConexion();
+            Statement statement = c.createStatement();
+            ResultSet rs=statement.executeQuery("select * from dependencias" );
+            if(rs.next()){
+                d=new Dependencia();
+                d.setNombre(rs.getString("nombre"));
+                d.setColonia(rs.getString("colonia"));
+                d.setCalle(rs.getString("calle"));
+                d.setNumero(rs.getInt("numero"));
+                d.setNombreEncargado(rs.getString("nombreEncargado"));
+                d.setApellidoPaternoEncargado(rs.getString("apellidoPaternoEncargado"));
+                d.setApellidoMaternoEncargado(rs.getString("apellidoMaternoEncargado"));
+                d.setCorreoEncargado(rs.getString("correoEncargado"));
+                d.setTelefono(rs.getString("telefono"));
+                d.setIdCoordinador(rs.getInt("idCoordinador"));
+                dependencias.add(d);
+            }
+            rs.close();
+            statement.close();
+            c.close();
+        }catch(SQLException | URISyntaxException e){
+            System.out.println(e.getMessage());
+        }
+        return dependencias;
     }
 }

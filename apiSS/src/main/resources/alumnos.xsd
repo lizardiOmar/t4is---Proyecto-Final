@@ -3,6 +3,37 @@
 targetNamespace="https://t4is.uv.mx/alumnos"
 xmlns:tns="https://t4is.uv.mx/alumnos"
 elementFormDefault="qualified">
+    <!---Request del reporte mensual -->
+    <xs:element name="ReporteMensualRequest">
+        <xs:complexType>
+            <xs:sequence>
+	            <xs:element name="token" type="xs:string"/>
+                <xs:element name="mes" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!---Response del reporte mensual -->
+    <xs:element name="ReporteMensualResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nombreAlumno" type="xs:string"/>
+                <xs:element name="nombreResponsable" type="xs:string"/>
+                <xs:element name="nombreCoordinador" type="xs:string"/>
+                <xs:element name="actividad" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence> 
+                            <xs:element name="fecha" type="xs:string"></xs:element>
+                            <xs:element name="horas" type="xs:int"></xs:element>
+                            <xs:element name="actividad" type="xs:string"></xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="horasMes" type="xs:int"></xs:element>
+                <xs:element name="horasTotal" type="xs:int"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!---PRUEBAS de SOAP-->
     <xs:element name="BuscarAlumnosRequest">
         <xs:complexType>
             <xs:sequence>
@@ -30,6 +61,24 @@ elementFormDefault="qualified">
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!---Request para consultar horas -->
+    <xs:element name="ConsultarHorasRequest">
+        <xs:complexType>
+            <xs:sequence>
+	            <xs:element name="token" type="xs:string"/>
+                <xs:element name="idAlumno" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!---Response para consultar horas -->
+    <xs:element name="ConsultarHorasResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="horasRealizadas" type="xs:int"></xs:element>
+                <xs:element name="horasFaltantes" type="xs:int"></xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

@@ -30,12 +30,12 @@ public class AlumnosConfig {
     
     }
     @Bean(name = "alumnos")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema saludosSchema) {
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema alumnosSchema) {
         DefaultWsdl11Definition wsdl = new DefaultWsdl11Definition();
         wsdl.setPortTypeName("alumnosPort");
         wsdl.setLocationUri("/ws");
         wsdl.setTargetNamespace("https://t4is.uv.mx/alumnos");
-        wsdl.setSchema(saludosSchema);
+        wsdl.setSchema(alumnosSchema);
         return wsdl;
     }
 }

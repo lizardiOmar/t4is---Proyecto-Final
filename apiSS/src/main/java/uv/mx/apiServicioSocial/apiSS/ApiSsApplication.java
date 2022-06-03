@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import uv.mx.apiServicioSocial.apiSS.DB.Alumno;
 import uv.mx.apiServicioSocial.apiSS.DB.Coordinador;
@@ -22,7 +21,6 @@ import uv.mx.apiServicioSocial.apiSS.DB.Dependencia;
 @RestController
 @SpringBootApplication
 public class ApiSsApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ApiSsApplication.class, args);
 	}
@@ -46,6 +44,22 @@ public class ApiSsApplication {
 		}
 		return alumnos;
 	}
+	/* Ejemplo de Body de las solicitudes PUT y POST
+		{
+			"idAlumno": 0,
+			"nombres":"Omar Alejandro",
+			"apellidoPaterno":"Alonso",
+			"apellidoMaterno":"Lizardi",
+			"matricula":"1234567890",
+			"correo":"correo@correo.com",
+			"token":"123456",
+			"promedio": 6.5,
+			"idCoordinador": 1,
+			"idDependencia": 1,
+			"telefono":"2288990088"
+		}
+	*/
+	//Agregar alumno
 	@PostMapping("/alumnos")
 	public String registrarAlumnoPost(@RequestBody Alumno alumno, @RequestHeader String Authorization){
 		String respuesta="Alumno "+alumno.getNombres()+" no registrado.";
@@ -60,7 +74,7 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-	
+	//Actualizar token de alumno
 	@PutMapping("/alumnos/{idAlumno}/actualizarToken")
 	public String actualizarTokenPostAlumno(@PathVariable int idAlumno, @RequestHeader String Authorization){
 		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
@@ -74,15 +88,15 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-	//Actualizar Alumno
-	@PutMapping("/alumnos/{idAlumno}/actualizar") 
+	//Actualizar alumno
+	@PutMapping("/alumnos/{idAlumno}/actualizar")
 	public String actualizarAlumno(@RequestBody Alumno alumno, @PathVariable int idAlumno, @RequestHeader String Authorization){
 		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
 		String respuesta = "Alumno no actualizado";
 		if(c!=null){
 			alumno.setIdAlumno(idAlumno);
 			if(Alumno.actualizarAlumno(alumno)){
-				Alumno.actualizarToken(idAlumno);
+				//Alumno.actualizarToken(idAlumno);
 				respuesta="Alumno actualizado"; 
 			}else{
 				respuesta="Error en actualizar alumno";
@@ -92,7 +106,38 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
+	//Eliminar Alumno
+	@DeleteMapping("/alumnos/{idAlumno}/eliminar")
+	public String eliminarAlumno(@PathVariable int idAlumno, @RequestHeader String Authorization){
+		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
+		String respuesta = "Alumno no eliminado";
+		if(c!=null){
+			if(Alumno.eliminarAlumno(idAlumno)){
+				respuesta="Alumno elminado"; 
+			}else{
+				respuesta="Error en eliminar alumno";
+			}	
+		}else{
+			respuesta="Token no válido";
+		}
+		return respuesta;
+	}
 	//REST DEPENDENCIAS
+	/* Ejemplo de Body de las solicitudes PUT y POST
+		{
+			"idDependencia": 2,
+			"nombre": "Dependencia 100",
+			"colonia": "Colonia 10",
+			"calle": "Calle 10",
+			"numero": 1,
+			"nombreEncargado": "Nadia I.",
+			"apellidoPaternoEncargado": "Bravo",
+			"apellidoMaternoEncargado": "Guevara",
+			"correoEncargado": "nadia@correos.com",
+			"telefono": "22887766655",
+			"idCoordinador": 1
+		}
+	*/
 	//Agregar dependencia
 	@PostMapping("/dependencias")
 	public String registrarDependenciaPost(@RequestBody Dependencia dependencia, @RequestHeader String Authorization){
@@ -109,8 +154,9 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-
-	@DeleteMapping("/dependencias/{idDependencia}/eliminarDependencia")
+	
+	//Eliminar dependencia
+	@DeleteMapping("/dependencias/{idDependencia}/eliminar")
 	public String eliminarDependencia(@PathVariable int idDependencia, @RequestHeader String Authorization){
 		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
 		String respuesta = "Dependencia no eliminada";
@@ -125,16 +171,18 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-	//Eliminar Alumno
-	@DeleteMapping("/alumnos/{idAlumno}/eliminarAlumno")
-	public String eliminarAlumno(@PathVariable int idAlumno, @RequestHeader String Authorization){
+	
+	//Actualizar dependencia
+	@PutMapping("/dependencias/{idDependencia}/actualizar")
+	public String actualizarDependencia(@RequestBody Dependencia dependencia, @PathVariable int idDependencia, @RequestHeader String Authorization){
 		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
-		String respuesta = "Alumno no eliminado";
+		String respuesta = "Dependencia no actualizada";
 		if(c!=null){
-			if(Alumno.eliminarAlumno(idAlumno)){
-				respuesta="Alumno elminado"; 
+			dependencia.setIdDependencia(idDependencia);
+			if(Dependencia.actualizarDependencia(dependencia)){
+				respuesta="Dependencia actualizada."; 
 			}else{
-				respuesta="Error en eliminar alumno";
+				respuesta="Error al actualizar dependencia.";
 			}	
 		}else{
 			respuesta="Token no válido";

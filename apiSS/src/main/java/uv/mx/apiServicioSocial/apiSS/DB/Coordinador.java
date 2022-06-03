@@ -73,4 +73,22 @@ public class Coordinador {
         }
         return c;
     }
+    public static Coordinador getCoordinadorById(int idCoordinador){
+        Coordinador c=null;
+        Statement statement;
+        try{
+            Connection conn= Conexion.getConexion();
+            statement = conn.createStatement();
+            ResultSet rs=statement.executeQuery("select * from coordinadores where idCoordinador="+idCoordinador+";");
+            if(rs.next()){
+                c = new Coordinador(rs.getInt("idCoordinador"), rs.getString("nombres"), rs.getString("apellidoPaterno"), rs.getString("apellidoMaterno"), rs.getString("token"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        }catch(SQLException | URISyntaxException e){
+            System.out.println(e.getMessage());
+        }
+        return c;
+    }
 }

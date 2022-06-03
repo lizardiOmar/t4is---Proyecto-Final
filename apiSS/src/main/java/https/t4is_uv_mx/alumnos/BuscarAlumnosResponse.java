@@ -1,8 +1,8 @@
 //
-// Este archivo ha sido generado por la arquitectura JavaTM para la implantaci√≥n de la referencia de enlace (JAXB) XML v2.3.2 
-// Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
-// Todas las modificaciones realizadas en este archivo se perder√°n si se vuelve a compilar el esquema de origen. 
-// Generado el: 2022.05.18 a las 06:33:22 PM CDT 
+// Este archivo ha sido generado por la arquitectura JavaTM para la implantaciÛn de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
+// Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Todas las modificaciones realizadas en este archivo se perder·n si se vuelve a compilar el esquema de origen. 
+// Generado el: 2022.06.03 a las 01:14:39 AM CDT 
 //
 
 
@@ -23,35 +23,35 @@ import javax.xml.bind.annotation.XmlType;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="alumnos" maxOccurs="unbounded"&gt;
- *           &lt;complexType&gt;
- *             &lt;complexContent&gt;
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *                 &lt;sequence&gt;
- *                   &lt;element name="idAlumno" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *                   &lt;element name="nombres" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *                   &lt;element name="apellidoPaterno" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *                   &lt;element name="apellidoMaterno" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *                   &lt;element name="matricula" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *                   &lt;element name="correo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *                   &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *                   &lt;element name="promedio" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *                   &lt;element name="idCoordinador" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *                   &lt;element name="idDependencia" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *                   &lt;element name="telefono" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *                 &lt;/sequence&gt;
- *               &lt;/restriction&gt;
- *             &lt;/complexContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="alumnos" maxOccurs="unbounded">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="idAlumno" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *                   &lt;element name="nombres" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="apellidoPaterno" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="apellidoMaterno" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="matricula" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="correo" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="promedio" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *                   &lt;element name="idCoordinador" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *                   &lt;element name="idDependencia" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *                   &lt;element name="telefono" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -102,25 +102,25 @@ public class BuscarAlumnosResponse {
      * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
      * 
      * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-     *       &lt;sequence&gt;
-     *         &lt;element name="idAlumno" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
-     *         &lt;element name="nombres" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="apellidoPaterno" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="apellidoMaterno" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="matricula" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="correo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="promedio" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
-     *         &lt;element name="idCoordinador" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
-     *         &lt;element name="idDependencia" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
-     *         &lt;element name="telefono" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *       &lt;/sequence&gt;
-     *     &lt;/restriction&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="idAlumno" type="{http://www.w3.org/2001/XMLSchema}int"/>
+     *         &lt;element name="nombres" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="apellidoPaterno" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="apellidoMaterno" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="matricula" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="correo" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="promedio" type="{http://www.w3.org/2001/XMLSchema}double"/>
+     *         &lt;element name="idCoordinador" type="{http://www.w3.org/2001/XMLSchema}int"/>
+     *         &lt;element name="idDependencia" type="{http://www.w3.org/2001/XMLSchema}int"/>
+     *         &lt;element name="telefono" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
      * </pre>
      * 
      * 

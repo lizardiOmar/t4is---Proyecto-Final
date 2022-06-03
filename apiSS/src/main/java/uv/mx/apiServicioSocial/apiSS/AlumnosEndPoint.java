@@ -11,6 +11,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import https.t4is_uv_mx.alumnos.BuscarAlumnosRequest;
 import https.t4is_uv_mx.alumnos.BuscarAlumnosResponse;
+import https.t4is_uv_mx.alumnos.ConsultarHorasRequest;
+import https.t4is_uv_mx.alumnos.ConsultarHorasResponse;
 import https.t4is_uv_mx.alumnos.ReporteMensualRequest;
 import https.t4is_uv_mx.alumnos.ReporteMensualResponse;
 import uv.mx.apiServicioSocial.apiSS.DB.Actividad;
@@ -95,6 +97,16 @@ public class AlumnosEndPoint {
             }
         }
         return respuesta;
+    }
+
+    @PayloadRoot(localPart = "ConsultarHorasRequest", namespace = "https://t4is.uv.mx/alumnos")
+    @ResponsePayload
+    public ConsultarHorasResponse consultarHoras(@RequestPayload ConsultarHorasRequest peticion) {
+        ConsultarHorasResponse response = new ConsultarHorasResponse();
+        int total = Alumno.contarHoras(peticion.getIdAlumno());
+        response.setHorasRealizadas(total);
+        response.setHorasFaltantes(480-total);
+        return response;
     }
 
 }

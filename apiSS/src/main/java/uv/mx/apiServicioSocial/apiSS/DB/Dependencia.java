@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.net.URISyntaxException;
 
 public class Dependencia {
@@ -243,5 +245,34 @@ public class Dependencia {
             System.out.println(e.getMessage());
         }
         return d;
+    }
+    public static List<Dependencia> visualizarDependencias(){
+        Dependencia d=null;
+        List<Dependencia> dependencias=new ArrayList<>();
+        try{
+            Connection c= Conexion.getConexion();
+            Statement statement = c.createStatement();
+            ResultSet rs=statement.executeQuery("select * from dependencias" );
+            if(rs.next()){
+                d=new Dependencia();
+                d.setNombre(rs.getString("nombre"));
+                d.setColonia(rs.getString("colonia"));
+                d.setCalle(rs.getString("calle"));
+                d.setNumero(rs.getInt("numero"));
+                d.setNombreEncargado(rs.getString("nombreEncargado"));
+                d.setApellidoPaternoEncargado(rs.getString("apellidoPaternoEncargado"));
+                d.setApellidoMaternoEncargado(rs.getString("apellidoMaternoEncargado"));
+                d.setCorreoEncargado(rs.getString("correoEncargado"));
+                d.setTelefono(rs.getString("telefono"));
+                d.setIdCoordinador(rs.getInt("idCoordinador"));
+                dependencias.add(d);
+            }
+            rs.close();
+            statement.close();
+            c.close();
+        }catch(SQLException | URISyntaxException e){
+            System.out.println(e.getMessage());
+        }
+        return dependencias;
     }
 }

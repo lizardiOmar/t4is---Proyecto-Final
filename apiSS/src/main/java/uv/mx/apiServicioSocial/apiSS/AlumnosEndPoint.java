@@ -11,8 +11,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import https.t4is_uv_mx.alumnos.BuscarAlumnosRequest;
 import https.t4is_uv_mx.alumnos.BuscarAlumnosResponse;
-//import https.t4is_uv_mx.alumnos.ReporteMensualRequest;
-//import https.t4is_uv_mx.alumnos.ReporteMensualResponse;
+import https.t4is_uv_mx.alumnos.ReporteMensualRequest;
+import https.t4is_uv_mx.alumnos.ReporteMensualResponse;
 import uv.mx.apiServicioSocial.apiSS.DB.Actividad;
 import uv.mx.apiServicioSocial.apiSS.DB.Alumno;
 import uv.mx.apiServicioSocial.apiSS.DB.Coordinador;
@@ -22,7 +22,7 @@ import uv.mx.apiServicioSocial.apiSS.DB.Dependencia;
 public class AlumnosEndPoint {
     // Endpoint del reporte mensual
     // Requiere el token del alumno y el mes del que se quieren los datos del repote
-    /* 
+
     @PayloadRoot(localPart = "BuscarAlumnosRequest", namespace = "https://t4is.uv.mx/alumnos")
     @ResponsePayload
     public ReporteMensualResponse reporteMensual(@RequestPayload ReporteMensualRequest peticion) {
@@ -63,12 +63,12 @@ public class AlumnosEndPoint {
             }
         }
         // Obtener horas del reporte por mes
-
+        
         // Obtener horas del reporte en total
 
         return reporteMensualResponse;
     }
-*/
+
     @PayloadRoot(localPart = "BuscarAlumnosRequest", namespace = "https://t4is.uv.mx/alumnos")
     @ResponsePayload
     public BuscarAlumnosResponse buscarAlumnos(@RequestPayload BuscarAlumnosRequest peticion) {
@@ -96,6 +96,5 @@ public class AlumnosEndPoint {
         }
         return respuesta;
     }
-    // Reporte mensual
 
 }

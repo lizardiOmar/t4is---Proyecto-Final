@@ -1,8 +1,8 @@
 //
-// Este archivo ha sido generado por la arquitectura JavaTM para la implantaci√≥n de la referencia de enlace (JAXB) XML v2.3.2 
-// Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
-// Todas las modificaciones realizadas en este archivo se perder√°n si se vuelve a compilar el esquema de origen. 
-// Generado el: 2022.05.18 a las 06:33:22 PM CDT 
+// Este archivo ha sido generado por la arquitectura JavaTM para la implantaciÛn de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
+// Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Todas las modificaciones realizadas en este archivo se perder·n si se vuelve a compilar el esquema de origen. 
+// Generado el: 2022.06.03 a las 01:14:39 AM CDT 
 //
 
 
@@ -45,6 +45,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ReporteMensualResponse }
+     * 
+     */
+    public ReporteMensualResponse createReporteMensualResponse() {
+        return new ReporteMensualResponse();
+    }
+
+    /**
      * Create an instance of {@link BuscarAlumnosRequest }
      * 
      */
@@ -58,6 +66,22 @@ public class ObjectFactory {
      */
     public BuscarAlumnosResponse.Alumnos createBuscarAlumnosResponseAlumnos() {
         return new BuscarAlumnosResponse.Alumnos();
+    }
+
+    /**
+     * Create an instance of {@link ReporteMensualRequest }
+     * 
+     */
+    public ReporteMensualRequest createReporteMensualRequest() {
+        return new ReporteMensualRequest();
+    }
+
+    /**
+     * Create an instance of {@link ReporteMensualResponse.Actividad }
+     * 
+     */
+    public ReporteMensualResponse.Actividad createReporteMensualResponseActividad() {
+        return new ReporteMensualResponse.Actividad();
     }
 
 }

@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="mes" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,13 +37,15 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "token"
+    "token",
+    "mes"
 })
-@XmlRootElement(name = "BuscarAlumnosRequest")
-public class BuscarAlumnosRequest {
+@XmlRootElement(name = "ReporteMensualRequest")
+public class ReporteMensualRequest {
 
     @XmlElement(required = true)
     protected String token;
+    protected int mes;
 
     /**
      * Obtiene el valor de la propiedad token.
@@ -66,6 +69,22 @@ public class BuscarAlumnosRequest {
      */
     public void setToken(String value) {
         this.token = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad mes.
+     * 
+     */
+    public int getMes() {
+        return mes;
+    }
+
+    /**
+     * Define el valor de la propiedad mes.
+     * 
+     */
+    public void setMes(int value) {
+        this.mes = value;
     }
 
 }

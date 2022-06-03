@@ -195,6 +195,29 @@ public class Alumno {
         }
         return alumno;
     }
+
+    public static Alumno buscarAlumnoToken(String token) {
+        Alumno alumno = null;
+        try {
+            Connection connection = Conexion.getConexion();
+            PreparedStatement query = connection.prepareStatement("select * from alumnos where token = ?");
+            query.setString(1, token);
+            
+            ResultSet result = query.executeQuery();
+            if(result.next()){
+                alumno = new Alumno();
+                alumno.setNombres(result.getString("nombres"));
+                alumno.setApellidoPaterno(result.getString("apellidoPaterno"));
+                alumno.setApellidoMaterno(result.getString("apellidoMaterno"));
+            }
+            result.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }catch(URISyntaxException ex){
+            System.out.println(ex.getMessage());
+        }
+        return alumno;
+    }
     //Actualizar token
     public static Boolean actualizarToken(int idAlumno){
         Boolean validacion = false;

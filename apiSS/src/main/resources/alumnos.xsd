@@ -82,4 +82,25 @@ elementFormDefault="qualified">
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <!---Request para registrar horas -->
+    <xs:element name="RegistrarHorasRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="idActividad" type="xs:int"></xs:element>
+                <xs:element name="descripcion" type="xs:string"></xs:element>
+                <xs:element name="fecha" type="xs:string"></xs:element>
+                <xs:element name="horas" type="xs:int"></xs:element>
+                <xs:element name="idAlumno" type="xs:int"></xs:element>
+                <xs:element name="token" type="xs:string"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!---Response para registrar horas -->
+    <xs:element name="RegistrarHorasResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resultado" type="xs:boolean"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema> 

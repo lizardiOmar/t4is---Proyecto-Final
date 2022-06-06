@@ -13,6 +13,8 @@ import https.t4is_uv_mx.alumnos.BuscarAlumnosRequest;
 import https.t4is_uv_mx.alumnos.BuscarAlumnosResponse;
 import https.t4is_uv_mx.alumnos.ConsultarHorasRequest;
 import https.t4is_uv_mx.alumnos.ConsultarHorasResponse;
+import https.t4is_uv_mx.alumnos.RegistrarHorasRequest;
+import https.t4is_uv_mx.alumnos.RegistrarHorasResponse;
 import https.t4is_uv_mx.alumnos.ReporteMensualRequest;
 import https.t4is_uv_mx.alumnos.ReporteMensualResponse;
 import uv.mx.apiServicioSocial.apiSS.DB.Actividad;
@@ -108,5 +110,25 @@ public class AlumnosEndPoint {
         response.setHorasFaltantes(480-total);
         return response;
     }
+
+    @PayloadRoot(localPart = "RegistrarHorasRequest", namespace = "https://t4is.uv.mx/alumnos")
+    @ResponsePayload
+    public RegistrarHorasResponse registrarHoras(@RequestPayload RegistrarHorasRequest peticion) {
+        RegistrarHorasResponse respuesta = new RegistrarHorasResponse();
+
+        Coordinador c = Coordinador.getCoordinadorByToken(peticion.getToken());
+        if (c != null) {
+            Actividad actividad = new Actividad();
+
+            actividad.setDescripcion(peticion.getDescripcion());
+            actividad.setFecha(peticion.getFecha());
+            actividad.setHoras(peticion.getHoras());
+            actividad.setIdActividad(peticion.getIdActividad());
+            actividad.setIdAlumno(peticion.getIdAlumno());
+            respuesta.setResultado(Actividad.guardarActividad(actividad));
+        }
+        return respuesta;
+    }
+
 
 }

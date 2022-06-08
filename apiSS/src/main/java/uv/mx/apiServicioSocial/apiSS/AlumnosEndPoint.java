@@ -26,18 +26,18 @@ import uv.mx.apiServicioSocial.apiSS.DB.Dependencia;
 public class AlumnosEndPoint {
     // Endpoint del reporte mensual
     // Requiere el token del alumno y el mes del que se quieren los datos del repote
-
-    @PayloadRoot(localPart = "BuscarAlumnosRequest", namespace = "https://t4is.uv.mx/alumnos")
+    @PayloadRoot(localPart = "ReporteMensualRequest", namespace = "https://t4is.uv.mx/alumnos")
     @ResponsePayload
     public ReporteMensualResponse reporteMensual(@RequestPayload ReporteMensualRequest peticion) {
         // Formato de la fecha
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH, peticion.getMes() + 1);
+        calendar.set(Calendar.MONTH, peticion.getMes() - 1);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         String fechaInicio = sdf.format(calendar.getTime());
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         String fechaFin = sdf.format(calendar.getTime());
+        System.out.println("Reporte de "+fechaInicio+" a "+fechaFin);
         // Inicia el response
         ReporteMensualResponse reporteMensualResponse = new ReporteMensualResponse();
         // Alumno que solicita el reporte
@@ -57,22 +57,30 @@ public class AlumnosEndPoint {
                 + dependencia.getApellidoPaternoEncargado() + " " + dependencia.getApellidoMaternoEncargado());
         // Obtener actividades del reporte
         List<Actividad> actividades = Actividad.getActividadesByRange(fechaInicio, fechaFin, alumno.getIdAlumno());
-        if (!actividades.isEmpty()) {
+        int horasMes=0;
+        if (actividades!=null) {
             for (Actividad actividad : actividades) {
                 ReporteMensualResponse.Actividad aux = new ReporteMensualResponse.Actividad();
                 aux.setFecha(actividad.getFecha());
                 aux.setHoras(actividad.getHoras());
                 aux.setActividad(actividad.getDescripcion());
                 reporteMensualResponse.getActividad().add(aux);
+                // Obtener horas del reporte por mes
+                horasMes+=actividad.getHoras();
             }
+        }else{
+            ReporteMensualResponse.Actividad aux = new ReporteMensualResponse.Actividad();
+            aux.setFecha("No hay actividades.");
+            aux.setHoras(0);
+            aux.setActividad("No hay actividades");
+            reporteMensualResponse.getActividad().add(aux);
         }
-        // Obtener horas del reporte por mes
-        
-        // Obtener horas del reporte en total
-
+        reporteMensualResponse.setHorasMes(horasMes);
+        // Obtener horas en total
+        int horasTotal = Actividad.horasTotal(alumno.getIdAlumno(), fechaFin);
+        reporteMensualResponse.setHorasTotal(horasTotal);
         return reporteMensualResponse;
     }
-
     @PayloadRoot(localPart = "BuscarAlumnosRequest", namespace = "https://t4is.uv.mx/alumnos")
     @ResponsePayload
     public BuscarAlumnosResponse buscarAlumnos(@RequestPayload BuscarAlumnosRequest peticion) {
@@ -100,7 +108,7 @@ public class AlumnosEndPoint {
         }
         return respuesta;
     }
-
+    
     @PayloadRoot(localPart = "ConsultarHorasRequest", namespace = "https://t4is.uv.mx/alumnos")
     @ResponsePayload
     public ConsultarHorasResponse consultarHoras(@RequestPayload ConsultarHorasRequest peticion) {
@@ -110,7 +118,7 @@ public class AlumnosEndPoint {
         response.setHorasFaltantes(480-total);
         return response;
     }
-
+    //
     @PayloadRoot(localPart = "RegistrarHorasRequest", namespace = "https://t4is.uv.mx/alumnos")
     @ResponsePayload
     public RegistrarHorasResponse registrarHoras(@RequestPayload RegistrarHorasRequest peticion) {
@@ -129,6 +137,4 @@ public class AlumnosEndPoint {
         }
         return respuesta;
     }
-
-
 }

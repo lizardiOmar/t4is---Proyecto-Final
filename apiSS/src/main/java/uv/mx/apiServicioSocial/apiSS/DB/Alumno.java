@@ -17,10 +17,10 @@ public class Alumno {
     private double promedio;
     private int idCoordinador;
     private int idDependencia;
-    private int horasFaltantes;
-    private int horasRealizadas;
-
-    public Alumno(int idAlumno, String nombres, String apellidoPaterno, String apellidoMaterno, String matricula, String correo, String token, double promedio, int idCoordinador, int idDependencia, String telefono) {
+    public Alumno() {
+    }
+    public Alumno(int idAlumno, String nombres, String apellidoPaterno, String apellidoMaterno, String matricula,
+            String correo, String token, double promedio, int idCoordinador, int idDependencia, String telefono) {
         this.idAlumno = idAlumno;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -28,125 +28,84 @@ public class Alumno {
         this.matricula = matricula;
         this.correo = correo;
         this.token = token;
-        this.telefono = telefono;
         this.promedio = promedio;
         this.idCoordinador = idCoordinador;
         this.idDependencia = idDependencia;
+        this.setTelefono(telefono);
     }
-
-    public Alumno() {
-    }
-
-    public int getIdAlumno() {
-        return idAlumno;
-    }
-
-    public void setIdAlumno(int idAlumno) {
-        this.idAlumno = idAlumno;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getApellidoPaterno() {
-        return apellidoPaterno;
-    }
-
-    public void setApellidoPaterno(String apellidoPaterno) {
-        this.apellidoPaterno = apellidoPaterno;
-    }
-
-    public String getApellidoMaterno() {
-        return apellidoMaterno;
-    }
-
-    public void setApellidoMaterno(String apellidoMaterno) {
-        this.apellidoMaterno = apellidoMaterno;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public String getTelefono() {
         return telefono;
     }
-
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
+    public int getIdAlumno() {
+        return idAlumno;
+    }
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+    public String getNombres() {
+        return nombres;
+    }
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
+    public String getMatricula() {
+        return matricula;
+    }
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+    public String getCorreo() {
+        return correo;
+    }
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+    public String getToken() {
+        return token;
+    }
+    public void setToken(String token) {
+        this.token = token;
+    }
     public double getPromedio() {
         return promedio;
     }
-
     public void setPromedio(double promedio) {
         this.promedio = promedio;
     }
-
     public int getIdCoordinador() {
         return idCoordinador;
     }
-
     public void setIdCoordinador(int idCoordinador) {
         this.idCoordinador = idCoordinador;
     }
-
     public int getIdDependencia() {
         return idDependencia;
     }
-
     public void setIdDependencia(int idDependencia) {
         this.idDependencia = idDependencia;
     }
-
-    public int getHorasFaltantes() {
-        return horasFaltantes;
-    }
-
-    public void setHorasFaltantes(int horasFaltantes) {
-        this.horasFaltantes = horasFaltantes;
-    }
-
-    public int getHorasRealizadas() {
-        return horasRealizadas;
-    }
-
-    public void setHorasRealizadas(int horasRealizadas) {
-        this.horasRealizadas = horasRealizadas;
-    }
-
     @Override
     public String toString() {
-        return "Alumno{" + "idAlumno=" + idAlumno + ", nombres=" + nombres + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", matricula=" + matricula + ", correo=" + correo + ", token=" + token + ", telefono=" + telefono + ", promedio=" + promedio + ", idCoordinador=" + idCoordinador + ", idDependencia=" + idDependencia + ", horasFaltantes=" + horasFaltantes + ", horasRealizadas=" + horasRealizadas + '}';
+        return "Alumno [apellidoMaterno=" + apellidoMaterno + ", apellidoPaterno=" + apellidoPaterno + ", correo="
+                + correo + ", idAlumno=" + idAlumno + ", idCoordinador=" + idCoordinador + ", idDependencia="
+                + idDependencia + ", matricula=" + matricula + ", nombres=" + nombres + ", promedio=" + promedio
+                + ", token=" + token + "]";
     }
-    
-    //Buscar todos los alumnos
     public static List<Alumno> getAlumnosByCoordinador(int idCoordinador){
         List <Alumno> alumnos=new ArrayList<>();
         try{
@@ -172,7 +131,6 @@ public class Alumno {
         }
         return alumnos;
     }
-
     //Geenerar token 
     public static String generarToken(Alumno a){
         Random rnd = new Random();
@@ -214,6 +172,7 @@ public class Alumno {
     }
 
     //Buscar alumno
+
     public static Alumno buscarAlumno(int idAlumno) {
         Alumno alumno = null;
         try {
@@ -236,8 +195,6 @@ public class Alumno {
         }
         return alumno;
     }
-
-    //Buscar alumno Token
     public static Alumno buscarAlumnoToken(String token) {
         Alumno alumno = null;
         try {
@@ -251,6 +208,9 @@ public class Alumno {
                 alumno.setNombres(result.getString("nombres"));
                 alumno.setApellidoPaterno(result.getString("apellidoPaterno"));
                 alumno.setApellidoMaterno(result.getString("apellidoMaterno"));
+                alumno.setIdCoordinador(result.getInt("idCoordinador"));
+                alumno.setIdAlumno(result.getInt("idAlumno"));
+                alumno.setIdDependencia(result.getInt("idDependencia"));
             }
             result.close();
         } catch (SQLException ex) {
@@ -258,9 +218,9 @@ public class Alumno {
         }catch(URISyntaxException ex){
             System.out.println(ex.getMessage());
         }
+        System.out.println("Alumno: "+alumno.toString());
         return alumno;
     }
-
     //Actualizar token
     public static Boolean actualizarToken(int idAlumno){
         Boolean validacion = false;
@@ -289,7 +249,6 @@ public class Alumno {
         }
         return validacion;
     }
-
     //Actualizar alumno
     public static boolean actualizarAlumno(Alumno alumno){
         boolean validacion = false;
@@ -324,7 +283,6 @@ public class Alumno {
         }
         return validacion;
     }
-
     //Eliminar Alumno
     public static boolean eliminarAlumno(int idAlumno){ 
         boolean validacion = false;

@@ -89,6 +89,7 @@ public class Coordinador {
         }catch(SQLException | URISyntaxException e){
             System.out.println(e.getMessage());
         }
+        System.out.println("Coordinador: "+c.toString());
         return c;
     }
 }

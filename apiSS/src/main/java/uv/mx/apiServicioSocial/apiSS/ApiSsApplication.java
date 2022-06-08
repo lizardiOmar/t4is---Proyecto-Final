@@ -24,8 +24,6 @@ public class ApiSsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiSsApplication.class, args);
 	}
-
-	//Asegurar Token
 	@RequestMapping(value="/coordinador/{token}", method=RequestMethod.GET)
 	public String verCoordinador(@PathVariable String token){
 		String response="Token no válido.";
@@ -35,19 +33,14 @@ public class ApiSsApplication {
 		}
 		return response;
 	}
-
 	//REST ALUMNOS
 	//Get lista de alumnos
 	@RequestMapping(value="/alumnos", method=RequestMethod.GET)
-	public List<Alumno> verAlumnos(@RequestHeader String Authorization){
+	public List<Alumno> verAlumnos(){
 		List<Alumno>alumnos=null;
-		Coordinador c=Coordinador.getCoordinadorByToken(Authorization);
-		if(c!=null){
-			alumnos=Alumno.getAlumnosByCoordinador(c.getIdCoordinador());
-		}
+		alumnos=Alumno.getAlumnosByCoordinador(1);
 		return alumnos;
 	}
-
 	/* Ejemplo de Body de las solicitudes PUT y POST
 		{
 			"idAlumno": 0,
@@ -78,7 +71,6 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-
 	//Actualizar token de alumno
 	@PutMapping("/alumnos/{idAlumno}/actualizarToken")
 	public String actualizarTokenPostAlumno(@PathVariable int idAlumno, @RequestHeader String Authorization){
@@ -93,7 +85,6 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-
 	//Actualizar alumno
 	@PutMapping("/alumnos/{idAlumno}/actualizar")
 	public String actualizarAlumno(@RequestBody Alumno alumno, @PathVariable int idAlumno, @RequestHeader String Authorization){
@@ -112,7 +103,6 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-
 	//Eliminar Alumno
 	@DeleteMapping("/alumnos/{idAlumno}/eliminar")
 	public String eliminarAlumno(@PathVariable int idAlumno, @RequestHeader String Authorization){
@@ -129,7 +119,6 @@ public class ApiSsApplication {
 		}
 		return respuesta;
 	}
-	
 	//REST DEPENDENCIAS
 	/* Ejemplo de Body de las solicitudes PUT y POST
 		{
@@ -208,5 +197,4 @@ public class ApiSsApplication {
 		}
 		return dependencias;
 	}
-
 }
